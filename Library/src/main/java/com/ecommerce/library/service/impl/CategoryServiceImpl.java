@@ -4,9 +4,10 @@ import com.ecommerce.library.model.Category;
 import com.ecommerce.library.repository.CategoryRepository;
 import com.ecommerce.library.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepository repository;
@@ -18,8 +19,14 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category save(Category category) {
-        Category categorySave = new Category(category.getName());
-        return repository.save(categorySave);
+        try{
+            Category categorySave = new Category(category.getName());
+            return repository.save(categorySave);
+        }catch (Exception e){
+            e.printStackTrace();
+            return  null;
+        }
+
     }
 
     @Override
